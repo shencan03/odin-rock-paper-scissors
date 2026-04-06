@@ -14,17 +14,11 @@ const getComputerChoice = () => {
 }
 
 
-const getHumanChoice = () => {
-  const choice = prompt("Enter your choice: ").toLowerCase()
-
-  return choice
-}
-
 let humanScore = 0, computerScore = 0
 
 
 const playRound = (humanChoice, computerChoice) => {
-  
+
   if(humanChoice == "rock"){
     if(computerChoice == "rock"){
       humanScore++
@@ -64,21 +58,44 @@ const playRound = (humanChoice, computerChoice) => {
   }
 }
 
-const playGame = () => {
-  for(let i = 0; i < 5; i++){
-    console.log(playRound(getHumanChoice(), getComputerChoice()))
-  }
+const body = document.querySelector("body")
 
-  console.log(`Your score: ${humanScore}\nComputer's score: ${computerScore}`)
+const gameDiv = document.createElement("div")
+gameDiv.id = "game-div"
+gameDiv.textContent = "container"
+gameDiv.style.backgroundColor = "red"
+body.appendChild(gameDiv)
 
-  if(humanScore > computerScore){
-    console.log("You win!")
-  } else if(humanScore < computerScore){
-    console.log("You lose!")
-  } else {
-    console.log("Draw!")
-  }
-}
+const btnRock = document.createElement("button")
+btnRock.id = "rock"
+btnRock.textContent = "Rock"
 
+const btnPaper = document.createElement("button")
+btnPaper.id = "paper"
+btnPaper.textContent = "Paper"
 
-playGame()
+const btnScissors = document.createElement("button")
+btnScissors.id = "scissors"
+btnScissors.textContent = "Scissors"
+
+gameDiv.appendChild(btnRock)
+gameDiv.appendChild(btnPaper)
+gameDiv.appendChild(btnScissors)
+
+const buttons = document.querySelectorAll("button")
+
+buttons.forEach((button) => {
+  const btnId = button.id
+  button.addEventListener("click", () => {
+    console.log(playRound(btnId, getComputerChoice()))
+  })
+})
+
+//   if(humanScore > computerScore){
+//     console.log("You win!")
+//   } else if(humanScore < computerScore){
+//     console.log("You lose!")
+//   } else {
+//     console.log("Draw!")
+//   }
+// }
