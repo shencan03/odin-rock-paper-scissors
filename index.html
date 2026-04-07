@@ -3,9 +3,33 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>Document</title>
     <script src="./index.js" defer></script>
   </head>
   <body>
+    <h1 id="title">Rock Paper Scissors</h1>
+    <div id="score-container">
+      <div class="score-card">
+        <div class="score-title" id="player-score">Player Score</div>
+        <div class="num" id="player-num"></div>
+        <div class="current-hand" id="player-hand"></div>
+      </div>
+      <div class="score-announcement">
+      </div>
+      <div class="score-card">
+        <div class="score-title" id="computer-score">Computer Score</div>
+        <div class="num" id="computer-num"></div>
+        <div class="current-hand" id="computer-hand"></div>
+      </div>
+    </div>
+    <div class="score-button">
+      <button id="rock">Rock</button>
+      <button id="paper">Paper</button>
+      <button id="scissors">Scissors</button>
+    </div>
   </body>
 </html>

@@ -16,78 +16,96 @@ const getComputerChoice = () => {
 
 let humanScore = 0, computerScore = 0
 
+let playerWon = false
+let isDraw = false
 
 const playRound = (humanChoice, computerChoice) => {
+  playerWon = false
+  isDraw = false
 
   if(humanChoice == "rock"){
     if(computerChoice == "rock"){
-      humanScore++
-      computerScore++
+      isDraw = true
       return "Draw!"
     } else if(computerChoice == "paper"){
+      playerWon = false
       computerScore++
       return "You lose! Paper beats rock"
     } else {
+      playerWon = true
       humanScore++
       return "You win! Rock beats scissors"
     }
   } else if(humanChoice == "paper"){
     if(computerChoice == "paper"){
-      computerScore++
-      humanScore++
+      isDraw = true
       return "Draw!"
     } else if(computerChoice == "rock"){
       humanScore++
+      playerWon = true
       return "You win! Paper beats rock"
     } else {
       computerScore++
+      currentWinner = "computer"
       return "You lose! Scissors beat paper"
     }
   } else { //humanChoice == "scissors"
     if(computerChoice == "scissors"){
-      humanScore++
-      computerScore++
+      isDraw = "true"
       return "Draw!"
     } else if(computerChoice == "rock"){
       computerScore++
+      playerWon = false
       return "You lose!"
     } else {
       humanScore++
+      playerWon = true
       return "You win! Scissors beat paper"
     }
   }
 }
 
-const body = document.querySelector("body")
+const playerNum = document.querySelector("#player-num")
+const computerNum = document.querySelector("#computer-num")
 
-const gameDiv = document.createElement("div")
-gameDiv.id = "game-div"
-gameDiv.textContent = "container"
-gameDiv.style.backgroundColor = "red"
-body.appendChild(gameDiv)
+playerNum.textContent = humanScore
+computerNum.textContent = computerScore
 
-const btnRock = document.createElement("button")
-btnRock.id = "rock"
-btnRock.textContent = "Rock"
+const capitalize = (s) => {
+  return s[0].toUpperCase() + s.slice(1)
+}
 
-const btnPaper = document.createElement("button")
-btnPaper.id = "paper"
-btnPaper.textContent = "Paper"
+const playerButtons = document.querySelectorAll(".score-button button")
 
-const btnScissors = document.createElement("button")
-btnScissors.id = "scissors"
-btnScissors.textContent = "Scissors"
-
-gameDiv.appendChild(btnRock)
-gameDiv.appendChild(btnPaper)
-gameDiv.appendChild(btnScissors)
-
-const buttons = document.querySelectorAll("button")
-
-buttons.forEach((button) => {
-  const btnId = button.id
+playerButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    console.log(playRound(btnId, getComputerChoice()))
+    const currentComputerHand = getComputerChoice()
+
+    const announcement = document.querySelector(".score-announcement")
+
+    announcement.textContent = playRound(button.id, currentComputerHand)
+
+    const currPHand = document.querySelector("#player-hand")
+    currPHand.textContent = capitalize(button.id)
+
+    const currCHand = document.querySelector("#computer-hand")
+    currCHand.textContent = capitalize(currentComputerHand)
+
+    playerNum.textContent = humanScore
+    computerNum.textContent = computerScore
+
+    if(!isDraw){
+      if(playerWon){
+        currPHand.style.color = "lightgreen"
+        currCHand.style.color = "red"
+      } else {
+        currPHand.style.color = "red"
+        currCHand.style.color = "lightgreen"
+      }
+    } else {
+      currPHand.style.color = "blue"
+      currCHand.style.color = "blue"
+    }
   })
 })
 
